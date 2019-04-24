@@ -1,0 +1,14 @@
+.NavBar {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 20px 25px 20px;
+    background-color: #202020;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.12);
+    z-index: 99;
+}
+
+.NavBar h1 {
+    font-size: 1.3em;
+    margin: 0;
+    color: #ffffff;
+}

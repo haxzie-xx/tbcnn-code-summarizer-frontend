@@ -1,0 +1,42 @@
+.SummaryView {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}   
+
+.Header {
+    display: flex;
+    padding: 15px;
+    background-color: rgb(56, 56, 56);
+    color: white;
+}
+
+.SummaryLayout {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 1;
+    background-color: rgb(226, 226, 226);
+}
+
+.ButtonLayout {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(9, 8, 10);
+}
+
+.ButtonLayout button {
+    border: 0;
+    background-color: transparent;
+    color: white;
+    flex-grow: 1;
+    padding: 12px;
+    margin: 7px;
+    transition: 0.2s all ease-in-out;
+}
+
+.ButtonLayout button:hover {
+    cursor: pointer;
+    background-color: black;
+    border-radius: 50px;
+}
