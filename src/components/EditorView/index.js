@@ -10,17 +10,26 @@ class Editor extends Component {
         super(props);
         this.state = {
             fontSize: 20,
-            code: ''
+            code: '',
+            summary: '',
         }
-
         this.onChange = this.onChange.bind(this);
-
+        this.isSummarized = false;
     }
 
     onChange(newValue) {
+        this.props.callback(newValue);
+        
         this.setState({
             code: newValue
         });
+    }
+
+    getSummary() {
+        if (this.props.summary && this.props.summary.length > 0) {
+            return `# Algorithm used in the function is ${this.props.summary}#
+`
+        } else return '';
     }
 
     render() {
@@ -37,7 +46,7 @@ class Editor extends Component {
                 style={{
                     lineHeight: 1.3
                 }}
-                value={this.state.code}
+                value={`${this.getSummary()}${this.state.code}`}
             />
         )
     }
