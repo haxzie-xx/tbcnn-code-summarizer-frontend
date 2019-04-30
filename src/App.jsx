@@ -28,9 +28,12 @@ class App extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSummarizeClick = this.onSummarizeClick.bind(this);
     this.onCodeChange = this.onCodeChange.bind(this);
+    this.downloadCallback = this.downloadCallback.bind(this);
+    this.copyCallback = this.copyCallback.bind(this);
     this.data = "";
     this.state = {
-      summary: ""
+      summary: "",
+      funData: []
     };
   }
 
@@ -59,12 +62,41 @@ class App extends Component {
 
   onCodeChange(newCode) {
     this.data = newCode;
+    let rx = /def\s([a-zA-Z0-9_].*)\s*\(.*\)\:/gm;
+    //let funHeads = newCode.match();
+    let funHeads = newCode.match(rx);
     if(this.state.summary.length > 0) {
       this.setState({
-        summary: ''
+        summary: '',
+      })
+    } else {
+      this.setState({
+        funData: funHeads,
       })
     }
     console.log("Code changed");
+  }
+
+  downloadCallback() {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(this.data));
+    element.setAttribute('download', 'summarized.py');
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }
+
+  copyCallback () {
+      var dummy = document.createElement("input");
+      document.body.appendChild(dummy);
+      dummy.setAttribute('value', this.data);
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
   }
 
   render() {
@@ -76,7 +108,12 @@ class App extends Component {
             <Editor callback={this.onCodeChange} summary={this.state.summary}/>
           </div>
           <div style={summaryLayoutStyle}>
-            <SummaryView callback={this.onSummarizeClick} data={this.state.summary}/>
+            <SummaryView 
+              callback={this.onSummarizeClick} 
+              data={this.state.summary} 
+              funs={this.state.funData}
+              downloadCallback={this.downloadCallback}
+              copyCallback={this.copyCallback}/>
           </div>
         </DivisionView>
       </div>
