@@ -1,0 +1,18 @@
+.FunctionCard {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+.FunctionCard h3 {
+    font-size: 1em;
+    padding: 10px;
+    margin: 5px;
+}
+
+.CardBottom {
+    padding: 5px;
+    border-top: 1px solid #eeeeee;
+}
