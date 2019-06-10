@@ -13,7 +13,14 @@ class SummaryView extends Component {
     getSummary() {
         console.log(this.props.funs);
         if (this.props.data && this.props.data.length > 0){
-            return `Algorithm used in the function is ${this.props.data}`
+            let percentage = this.props.data.split(',')[0];
+            let algo = this.props.data.split(',')[1]
+            percentage = Math.ceil(Number(percentage) * 100)
+            if (percentage > 50)
+                return `Algorithm used in the code is ${algo} with a predictive accuracy of ${percentage}%`
+            else
+                return `Couldn't find the algorithm used in the code. 
+The code probably contain ${algo.trim()} with a small accuracy of ${percentage}%`
         }
     }
 

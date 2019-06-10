@@ -27,8 +27,13 @@ class Editor extends Component {
 
     getSummary() {
         if (this.props.summary && this.props.summary.length > 0) {
-            return `# Algorithm used in the function is ${this.props.summary}#
-`
+            let percentage = Number(this.props.summary.split(',')[0])*100;
+            let algorithm = this.props.summary.split(',')[1];
+            if (percentage >= 50)
+                return `"""
+Summary: Algorithm used in the code is ${algorithm}"""
+`;
+            else return '';
         } else return '';
     }
 

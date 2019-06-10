@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import DivisionView from './components/DivisionView';
 import Editor from './components/EditorView';
 import SummaryView from './components/SummaryView';
+import LoadingScreen from './components/LoadingScreen';
 
 
 const editorLayoutStyle = {
@@ -33,7 +34,8 @@ class App extends Component {
     this.data = "";
     this.state = {
       summary: "",
-      funData: []
+      funData: [],
+      isSummarizing: false
     };
   }
 
@@ -43,7 +45,8 @@ class App extends Component {
 
   async onSummarizeClick() {
     console.log("Need to summarize");
-    let response = await fetch('http://localhost:3001', {
+    this.setState({ isSummarizing: true});
+    let response = await fetch('http://localhost:3001/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -55,7 +58,8 @@ class App extends Component {
     });
     let data = JSON.parse(await response.text())
     this.setState({
-      summary: data.message
+      summary: data.message,
+      isSummarizing: false
     });
       
   }
@@ -103,6 +107,9 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar/>
+        {
+          this.state.isSummarizing? <LoadingScreen/> : <></>
+        }
         <DivisionView>
           <div style={editorLayoutStyle}>
             <Editor callback={this.onCodeChange} summary={this.state.summary}/>

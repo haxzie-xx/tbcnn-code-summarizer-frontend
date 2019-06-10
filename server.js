@@ -4,18 +4,27 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const exec = require('child_process').exec;
+const path = require('path');
 
 app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'build')));
 
 let data = "";
+let result = {}
 
-app.get('/', (req, res) => {
+app.get('/data', (req, res) => {
     console.log(data);
     res.status(200)
         .send(data);
+});
+
+app.post('/result', (req, res) => {
+    result = JSON.parse(req.body.result);
+    res.status(200)
+        .send('Success');
 });
 
 app.post('/', (req, res) => {
